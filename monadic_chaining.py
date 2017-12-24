@@ -3,24 +3,26 @@ class List(list):
     def __init__(self, args=[]):
         super(List, self).__init__(args)
         
-    def _map(self,func):
+    def map(self,func):
         l = []
         for i in self:
             l.append(func(i))
         return List(l)
     
-    def _filter(self, func):
+    def filter(self, func):
         l = []
         for i in self:
             if func(i):
                 l.append(i)
         return List(l)
-    def _fold(self, func, starts):
+
+    def fold(self, func, starts):
         v = copy.deepcopy(starts)
         for i in self:
             v = func(v,i)
         return v
-    def _group_by(self, func):
+
+    def group_by(self, func):
         d = {}
         for i in self:
             val = func(i)
@@ -29,34 +31,35 @@ class List(list):
             d[val].append(i)
         return Dic(d)
 
-    def _foreach(self, func):
+    def foreach(self, func):
         for i in self:
             func(i)
 
-    def _to_dict(self):
+    def to_dict(self):
         return {i[0]:i[1] for i in self}
 
-    def _mk_string(self, sep = ",", left = "", right = ""):
+    def mk_string(self, sep = ", ", left = "", right = ""):
         return left + sep.join([str(i) for i in self]) + right
 
     def __add__(self, other):
         return List(self + other)
-        
+
+
 class Dic(dict):
     def __init__(self, args):
         super(Dic, self).__init__(args)
-    def _map_vals(self, func):
+    def map_vals(self, func):
         l = {}
         for i in self:
             l[i] = func(i, self[i])
         return Dic(l)
-    def _map_keys(self, func):
+    def map_keys(self, func):
         l = {}
         for i in self:
             l[func(i, self[i])] = self[i]
         return Dic(l)
 
-    def _filter(self, func):
+    def filter(self, func):
         l = {}
         for i in self:
             if func(i, self[i]):
@@ -70,9 +73,157 @@ class Dic(dict):
             return else_val
 
     @property
-    def _to_list(self):
+    def to_list(self):
         return List([(i, self[i]) for i in self])
 
-    def _foreach(self, func):
+    def foreach(self, func):
         for i in self:
             func(i, self[i])
+
+class Option(object):
+    def __init__(self):
+        pass
+
+    def is_none(self):
+        pass
+
+    def flat_map(self, func):
+        pass
+
+    def map(self, func):
+        pass
+
+    def get(self):
+        pass
+
+    def get_or_else(self, other):
+        pass
+
+    def get_or_else_lazy(self, func):
+        pass
+
+
+class Nothing(Option):
+    def __init__(self):
+        super(Nothing, self).__init__()
+
+    def is_none(self):
+        return True
+
+    def flat_map(self, func):
+        return self
+
+    def map(self, func):
+        return self
+
+    def get(self):
+        raise AttributeError("get called on option's None")
+
+    def get_or_else(self, other):
+        return other
+
+    def get_or_else_lazy(self, func):
+        return func()
+
+class Some(Option):
+    def __init__(self, value):
+        super(Some, self).__init__()
+        self.value = value
+
+    def is_none(self):
+        return False
+
+    def flat_map(self, func):
+        return func(self.value)
+
+    def map(self, func):
+        return Some(func(self.value))
+
+    def get(self):
+        return self.value
+
+    def get_or_else(self, func):
+        return self.value
+
+    def get_or_else_lazy(self, func):
+        return self.value
+
+class Try(object):
+    def __init__(self):
+        pass
+
+    def is_failure(self):
+        pass
+
+    def is_success(self):
+        pass
+
+    def flat_map(self, func):
+        pass
+
+    def map(self, func):
+        pass
+
+    def get(self):
+        pass
+
+    def get_or_else(self, func):
+        pass
+
+class Failure(Try):
+    def __init__(self, exception):
+        super(Failure, self).__init__()
+        self.exception = exception
+
+    def is_failure(self):
+        return True
+
+    def is_success(self):
+        return False
+
+    def flat_map(self, func):
+        return self
+
+    def map(self, func):
+        return self
+
+    def result(self):
+        raise AttributeError("result called on Try's Failure")
+
+    def get_or_else(self, other):
+        return other
+
+    def to_list(self):
+        return List()
+
+class Success(Try):
+    def __init__(self, value):
+        super(Success, self).__init__()
+        self.value = value
+
+    def is_failure(self):
+        return False
+
+    def is_success(self):
+        return True
+
+    def flat_map(self, func):
+        try:
+            return func(self.value)
+        except Exception as e:
+            return Failure(e)
+
+    def map(self, func):
+        try:
+            return Success(func(self.value))
+        except Exception as e:
+            return Failure(e)
+
+    def result(self):
+        raise AttributeError("result called on Try's Failure")
+
+    def get_or_else(self, other):
+        return self.value
+
+    def to_list(self):
+        return List(self.value)
