@@ -35,8 +35,14 @@ class List(list):
         for i in self:
             func(i)
 
+    def sorted(self, key = None):
+        return List(sorted(self, key=key))
+
     def to_dict(self):
-        return {i[0]:i[1] for i in self}
+        return Dic({i[0]:i[1] for i in self})
+
+    def to_set(self):
+        return Set(self)
 
     def mk_string(self, sep = ", ", left = "", right = ""):
         return left + sep.join([str(i) for i in self]) + right
@@ -44,6 +50,31 @@ class List(list):
     def __add__(self, other):
         return List(self + other)
 
+class Set(set):
+    def __init__(self, args={}):
+        super(Set, self).__init__(args)
+
+    def map(self,func):
+        l = set()
+        for i in self:
+            l.add(func(i))
+        return Set(l)
+
+    def filter(self, func):
+        l = set()
+        for i in self:
+            if func(i):
+                l.add(i)
+        return Set(l)
+
+    def to_dict(self):
+        return Dic({i[0]:i[1] for i in self})
+
+    def to_list(self):
+        return List(self)
+
+    def mk_string(self, sep = ", ", left = "", right = ""):
+        return left + sep.join([str(i) for i in self]) + right
 
 class Dic(dict):
     def __init__(self, args):

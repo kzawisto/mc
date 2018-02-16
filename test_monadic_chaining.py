@@ -28,6 +28,14 @@ def test_list_mk_string():
 def test_list_to_dict():
     eq_( List([(5, 6), (7, 8)]).to_dict(), {5: 6, 7: 8})
 
+def test_list_to_set():
+    eq_(List([5,6,7]).to_set().to_list(),List([5,6,7]) )
+
+def test_set_map():
+    eq_(Set([5,6,7]).map(lambda x: x % 2), Set([1,0]) )
+
+def test_set_filter():
+    eq_(Set([5,6,7]).filter(lambda x: x % 2==0), Set([6]) )
 
 def test_dict_map_keys():
     eq_(Dic({1: 5, 2: 6}).map_keys(lambda x,y: x * y), {5: 5, 12: 6})
@@ -47,3 +55,4 @@ def test_get_or_else():
     dictionary = Dic({1: 2, 3: 4})
     eq_(dictionary.get_or_else(1, 0), 2)
     eq_(dictionary.get_or_else(2, 10), 10)
+
