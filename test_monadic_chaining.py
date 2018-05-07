@@ -56,3 +56,12 @@ def test_get_or_else():
     eq_(dictionary.get_or_else(1, 0), 2)
     eq_(dictionary.get_or_else(2, 10), 10)
 
+def test_dic_with_kv():
+    dictionary = Dic({1: 2, 3: 4})
+    eq_(dictionary.with_kv(4,5), Dic({1:2, 3:4, 4:5}))
+    eq_(dictionary, Dic({1:2, 3:4}))
+
+def test_dic_with_dic():
+    dictionary = Dic({1: 2, 3: 4})
+    eq_(dictionary.with_dic({4:5, 6:7}), Dic({1:2, 3:4, 4:5, 6:7}))
+    eq_(dictionary, Dic({1:2, 3:4}))

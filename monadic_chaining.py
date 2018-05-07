@@ -103,6 +103,17 @@ class Dic(dict):
         else:
             return else_val
 
+    def with_kv(self, key, value):
+        new_dic = copy.copy(self)
+        new_dic[key] = value
+        return new_dic
+
+    def with_dic(self, dic):
+        new_dic = copy.copy(self)
+        for key in dic:
+            new_dic[key] = dic[key]
+        return new_dic
+
     @property
     def to_list(self):
         return List([(i, self[i]) for i in self])
@@ -258,3 +269,5 @@ class Success(Try):
 
     def to_list(self):
         return List(self.value)
+
+        
