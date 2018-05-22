@@ -1,7 +1,7 @@
 
 from distutils.core import setup
-setup(name='monadic_chaining',
+setup(name='mc',
       version='0.0.1',
-      py_modules=['monadic_chaining'],
+      py_modules=['mc'],
       license='MIT'
       )
