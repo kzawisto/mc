@@ -65,3 +65,8 @@ def test_dic_with_dic():
     dictionary = Dic({1: 2, 3: 4})
     eq_(dictionary.with_dic({4:5, 6:7}), Dic({1:2, 3:4, 4:5, 6:7}))
     eq_(dictionary, Dic({1:2, 3:4}))
+
+def test_list_multiproc_map():
+    def process_el(x):
+        return x * 2
+    eq_(List([1, 2, 3]).multiproc_map(process_el), [2,4,6])

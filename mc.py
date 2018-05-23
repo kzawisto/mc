@@ -44,6 +44,16 @@ class List(list):
     def to_set(self):
         return Set(self)
 
+    def multiproc_map(self, func):
+        from pathos.multiprocessing import Pool
+        pool = Pool()
+        result = List(pool.map(func, self))
+        pool.close()
+        pool.join()
+        return result
+
+
+
     def mk_string(self, sep = ", ", left = "", right = ""):
         return left + sep.join([str(i) for i in self]) + right
 
@@ -132,6 +142,9 @@ class Option(object):
     def flat_map(self, func):
         pass
 
+    def to_list(self):
+        pass
+
     def map(self, func):
         pass
 
@@ -154,6 +167,9 @@ class Nothing(Option):
 
     def flat_map(self, func):
         return self
+
+    def to_list(self):
+        return List()
 
     def map(self, func):
         return self
@@ -180,6 +196,9 @@ class Some(Option):
 
     def map(self, func):
         return Some(func(self.value))
+
+    def to_list(self):
+        return List(self.value)
 
     def get(self):
         return self.value
