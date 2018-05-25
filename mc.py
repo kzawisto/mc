@@ -8,6 +8,14 @@ class List(list):
         for i in self:
             l.append(func(i))
         return List(l)
+
+    def flat_map(self,func):
+        l = []
+        for i in self:
+            result = func(i)
+            for r in result:
+                l.append(r)
+        return List(l)
     
     def filter(self, func):
         l = []

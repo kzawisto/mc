@@ -5,6 +5,8 @@ from nose.tools import eq_
 def test_list_map():
     eq_(List([1, 2, 3]).map(lambda x: x * 2), [2,4,6])
 
+def test_list_flat_map():
+    eq_(List([1, 3]).flat_map(lambda x: (x * 2, x* 4)), [2,4,6,12])
 
 def test_list_filter():
     eq_(List([1, 2, 3]).filter(lambda x: x < 2), [1])
