@@ -68,6 +68,14 @@ class Set(set):
             l.add(func(i))
         return Set(l)
 
+    def flat_map(self,func):
+        l = set()
+        for i in self:
+            result = func(i)
+            for r in result:
+                l.add(r)
+        return Set(l)
+
     def filter(self, func):
         l = set()
         for i in self:
