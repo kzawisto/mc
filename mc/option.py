@@ -31,6 +31,9 @@ class Nothing(Option):
     def __iter__(self):
         return iter([])
 
+    def __str__(self):
+        return "Nothing()"
+
     def is_none(self):
         return True
 
