@@ -32,6 +32,19 @@ class List(list):
             value = func(value, item)
         return value
 
+    def reduce(self, func):
+        from mc.option import Some, Nothing
+        if self.is_empty():
+            return Nothing()
+        else:
+            value = self[0]
+            for item in self[1:]:
+                value = func(value, item)
+            return Some(value)
+
+    def is_empty(self):
+        return len(self) == 0
+
     def group_by(self, func):
         dictionary = {}
         from mc.dict import Dict

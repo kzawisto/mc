@@ -53,3 +53,14 @@ def test_list_should_flat_map_iterables():
     assert_that(
         List([1, 2]).flat_map(lambda x: {x, x * 2, x * 3}), contains_inanyorder(1, 2, 3, 2, 4, 6)
     )
+
+def test_list_reduce_should_return_nothing_for_empty_list():
+    assert_that(
+                List([]).reduce(lambda x, y: x), equal_to(Nothing())
+            )
+
+
+def test_list_reduce_should_aggregate_values():
+    assert_that(
+                List([1, 2, 3]).reduce(lambda x, y: x + y), equal_to(Some(6))
+            )
