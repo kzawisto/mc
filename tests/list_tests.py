@@ -39,6 +39,12 @@ def test_list_to_set():
     eq_(List([5, 6, 7]).to_set().to_list(), List([5, 6, 7]))
 
 
+def test_list_multiproc_map():
+    def process_el(x):
+        return x * 2
+    eq_(List([1, 2, 3]).multiproc_map(process_el), [2,4,6])
+
+
 def test_list_foreach():
     dictionary = {}
 

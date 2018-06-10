@@ -26,6 +26,14 @@ class List(list):
                 new_list.append(item)
         return List(new_list)
 
+    def multiproc_map(self, func):
+        from pathos.multiprocessing import Pool
+        pool = Pool()
+        result = List(pool.map(func, self))
+        pool.close()
+        pool.join()
+        return result
+
     def fold(self, func, initial_value):
         value = copy.deepcopy(initial_value)
         for item in self:
