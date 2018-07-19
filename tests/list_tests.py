@@ -1,7 +1,7 @@
-from mc import *
+from mc import List
+from hamcrest import *
 from nose.tools import eq_
 
-from hamcrest import *
 
 
 def test_list_map():
@@ -46,7 +46,8 @@ def test_list_foreach():
         dictionary[value] = value
 
     List([9, 8, 7]).foreach(add_to_dict)
-    eq_(dictionary.keys(), {9, 8, 7})
+    actual = set(dictionary.keys())
+    eq_(actual, {9, 8, 7})
 
 
 def test_list_should_flat_map_iterables():
