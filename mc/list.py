@@ -26,11 +26,32 @@ class List(list):
                 new_list.append(item)
         return List(new_list)
 
+    def multiproc_map(self, func):
+        from pathos.multiprocessing import Pool
+        pool = Pool()
+        result = List(pool.map(func, self))
+        pool.close()
+        pool.join()
+        return result
+
     def fold(self, func, initial_value):
         value = copy.deepcopy(initial_value)
         for item in self:
             value = func(value, item)
         return value
+
+    def reduce(self, func):
+        from mc.option import Some, Nothing
+        if self.is_empty():
+            return Nothing()
+        else:
+            value = self[0]
+            for item in self[1:]:
+                value = func(value, item)
+            return Some(value)
+
+    def is_empty(self):
+        return len(self) == 0
 
     def group_by(self, func):
         dictionary = {}

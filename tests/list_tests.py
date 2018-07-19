@@ -39,6 +39,12 @@ def test_list_to_set():
     eq_(List([5, 6, 7]).to_set().to_list(), List([5, 6, 7]))
 
 
+def test_list_multiproc_map():
+    def process_el(x):
+        return x * 2
+    eq_(List([1, 2, 3]).multiproc_map(process_el), [2,4,6])
+
+
 def test_list_foreach():
     dictionary = {}
 
@@ -54,3 +60,14 @@ def test_list_should_flat_map_iterables():
     assert_that(
         List([1, 2]).flat_map(lambda x: {x, x * 2, x * 3}), contains_inanyorder(1, 2, 3, 2, 4, 6)
     )
+
+def test_list_reduce_should_return_nothing_for_empty_list():
+    assert_that(
+                List([]).reduce(lambda x, y: x), equal_to(Nothing())
+            )
+
+
+def test_list_reduce_should_aggregate_values():
+    assert_that(
+                List([1, 2, 3]).reduce(lambda x, y: x + y), equal_to(Some(6))
+            )

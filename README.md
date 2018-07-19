@@ -1,4 +1,3 @@
-
 # MC 
 ## Monads with fluid API for python
 
