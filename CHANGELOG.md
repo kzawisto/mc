@@ -1,5 +1,5 @@
 
-## 0.1.0
+## 0.1.1
 
 - fixed bug in List __add__, added test
 - added Dict addition and Set addition
