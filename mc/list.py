@@ -82,4 +82,4 @@ class List(list):
         return left + sep.join([str(item) for item in self]) + right
 
     def __add__(self, other):
-        return List(self + other)
+        return List(list(self) + list(other))

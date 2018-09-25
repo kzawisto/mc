@@ -73,3 +73,11 @@ class Dict(dict):
 
     def __str__(self):
         return "Dict" + self.mk_string()
+
+    def __add__(self, other):
+        if isinstance(other, dict):
+            return self.with_dic(other)
+        if isinstance(other, list) or isinstance(other, set):
+            from mc.list import List
+            return self.with_dic(List(other).to_dict())
+        raise AssertionError("Not supported type, should be list, dict or set")

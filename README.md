@@ -11,6 +11,20 @@ mc.List([1, 2, 3, 4]).map(lambda x: x * x # [1, 4, 9, 16]
     ).map_vals(lambda key, value: "_".join(value) # {0: "4", 1: "1_9"}
     ).map_keys(lambda key, value: {0:"even", 1:"odd"}[key] #  {"even": "4", "odd": "1_9"}
     ).mk_string(";", "=>","[[","]]") # [[even=>4;odd=>1_9]]'
+
+
+mc.List([0,3,5,2,5,7,3,5,3,120,4,5]
+    ).filter(lambda x: x < 10  # remove outlier
+    ).map(mc.mux(min=min, max=max, sum=sum) # dict with summary statistics
+
+number_of_occurences = filenames.map(
+    mc.chain( # lazy evaluation
+        read_file,
+        lambda line: "text to search" in line,
+        len
+    )
+).reduce(mc.add)
+
 ```
 ## Requirements:
 Python, package was tested with 2.7.10 and 3.4.3 on Linux environment.

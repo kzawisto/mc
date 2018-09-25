@@ -1,4 +1,4 @@
-from mc import *
+from mc import Dict, List, Some, Nothing
 from nose.tools import eq_
 from hamcrest import *
 
@@ -54,3 +54,10 @@ def test_dict_get_optional_should_return_nothing_if_no_such_key():
 
 def test_dict_get_optional_should_return_value_in_some():
     assert_that(Dict({"key": 10}).get_optional("key"), Some(10))
+
+def test_dict_adding_dicts():
+    assert_that(Dict(dict(key=10)) + Dict(dict(key2=11)), equal_to( Dict(dict(key = 10, key2=11)))) 
+
+def test_dict_adding_dict_to_list():
+    assert_that(Dict(dict(key=10)) + List([("hello","world")]), equal_to( Dict(dict(key = 10, hello="world")))) 
+

@@ -1,4 +1,4 @@
-from mc import List
+from mc import List, Some, Nothing
 from hamcrest import *
 from nose.tools import eq_
 
@@ -70,4 +70,9 @@ def test_list_reduce_should_return_nothing_for_empty_list():
 def test_list_reduce_should_aggregate_values():
     assert_that(
                 List([1, 2, 3]).reduce(lambda x, y: x + y), equal_to(Some(6))
+            )
+
+def test_list_addition():
+    assert_that(
+                List([1,2]) + List(["3", 4]) , equal_to(List([1, 2, "3", 4]))
             )

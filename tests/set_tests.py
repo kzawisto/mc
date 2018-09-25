@@ -1,5 +1,6 @@
 from mc import *
 from nose.tools import eq_
+from hamcrest import *
 
 
 def test_set_mk_string():
@@ -16,3 +17,13 @@ def test_set_filter():
 
 def test_set_flat_map():
     eq_(Set([1, 2]).flat_map(lambda x: (x * 2, x * 4)), {2, 4, 8})
+
+def test_set_addition_w_list():
+    assert_that(
+                Set([1]) + List(["3", 4]) , equal_to(Set([1, "3", 4]))
+            )
+
+def test_set_addition_repeated_indices():
+    assert_that(
+                Set([1, 2]) + List(["3", 4, 2 ,2]) , equal_to(Set(["3", 4,2 ,1]))
+            )

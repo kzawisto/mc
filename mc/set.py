@@ -33,3 +33,6 @@ class Set(set):
 
     def mk_string(self, sep=", ", left="", right=""):
         return self.to_list().sorted().mk_string(sep, left, right)
+
+    def __add__(self, other):
+        return Set(list(self) + list(other))
