@@ -1,6 +1,7 @@
 
 from mc import Dict, List
 
+
 def chain(*callables):
     def f(arg):
         result = arg
@@ -11,7 +12,7 @@ def chain(*callables):
     return f
 
 
-def mux(*callables,**kwcallables):
+def mux(*callables, **kwcallables):
     if len(callables) == 0 and len(kwcallables) != 0:
 
         def f(arg):
@@ -35,11 +36,14 @@ def mux(*callables,**kwcallables):
         def f(args):
             return f
 
-    raise AssertionError("You should either pass all named or all not-named arguments")
+    raise AssertionError(
+        "You should either pass all named or all not-named arguments")
 
-add = lambda a,b: a + b
 
-subtr = lambda a,b: a - b
+def add(a, b): return a + b
 
-multiply = lambda a,b: a * b
 
+def subtr(a, b): return a - b
+
+
+def multiply(a, b): return a * b

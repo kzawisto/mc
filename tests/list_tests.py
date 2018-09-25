@@ -3,7 +3,6 @@ from hamcrest import *
 from nose.tools import eq_
 
 
-
 def test_list_map():
     eq_(List([1, 2, 3]).map(lambda x: x * 2), [2, 4, 6])
 
@@ -42,7 +41,7 @@ def test_list_to_set():
 def test_list_multiproc_map():
     def process_el(x):
         return x * 2
-    eq_(List([1, 2, 3]).multiproc_map(process_el), [2,4,6])
+    eq_(List([1, 2, 3]).multiproc_map(process_el), [2, 4, 6])
 
 
 def test_list_foreach():
@@ -58,21 +57,24 @@ def test_list_foreach():
 
 def test_list_should_flat_map_iterables():
     assert_that(
-        List([1, 2]).flat_map(lambda x: {x, x * 2, x * 3}), contains_inanyorder(1, 2, 3, 2, 4, 6)
+        List([1, 2]).flat_map(lambda x: {
+            x, x * 2, x * 3}), contains_inanyorder(1, 2, 3, 2, 4, 6)
     )
+
 
 def test_list_reduce_should_return_nothing_for_empty_list():
     assert_that(
-                List([]).reduce(lambda x, y: x), equal_to(Nothing())
-            )
+        List([]).reduce(lambda x, y: x), equal_to(Nothing())
+    )
 
 
 def test_list_reduce_should_aggregate_values():
     assert_that(
-                List([1, 2, 3]).reduce(lambda x, y: x + y), equal_to(Some(6))
-            )
+        List([1, 2, 3]).reduce(lambda x, y: x + y), equal_to(Some(6))
+    )
+
 
 def test_list_addition():
     assert_that(
-                List([1,2]) + List(["3", 4]) , equal_to(List([1, 2, "3", 4]))
-            )
+        List([1, 2]) + List(["3", 4]), equal_to(List([1, 2, "3", 4]))
+    )

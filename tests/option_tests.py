@@ -58,7 +58,8 @@ def test_get_or_else_on_some_should_return_value():
 
 
 def test_get_or_else_lazy_on_some_should_return_value_and_dont_call_function():
-    assert_that(Some(13).get_or_else_lazy(lambda: raise_(AttributeError(""))), equal_to(13))
+    assert_that(Some(13).get_or_else_lazy(
+        lambda: raise_(AttributeError(""))), equal_to(13))
 
 
 def test_get_or_else_lazy_on_nothing_call_function():

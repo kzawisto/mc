@@ -9,7 +9,8 @@ def test_string_should_strip_prefix():
 
 
 def test_string_should_throw_on_strip_prefix_if_arg_is_no_prefix():
-    assert_that(calling(lambda: String("abc").strip_prefix("c")), raises(AssertionError))
+    assert_that(calling(lambda: String("abc").strip_prefix("c")),
+                raises(AssertionError))
 
 
 def test_string_should_have_str_attr():
