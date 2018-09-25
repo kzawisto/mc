@@ -1,5 +1,5 @@
 # MC 
-## Monads with fluid API for python
+## Monads with fluet API for python
 
 ```python
 import mc
@@ -15,7 +15,7 @@ mc.List([1, 2, 3, 4]).map(lambda x: x * x # [1, 4, 9, 16]
 
 mc.List([0,3,5,2,5,7,3,5,3,120,4,5]
     ).filter(lambda x: x < 10  # remove outlier
-    ).map(mc.mux(min=min, max=max, sum=sum) # dict with summary statistics
+    ).map(mc.mux(min=min, max=max, sum=sum)) # dict with summary statistics
 
 number_of_occurences = filenames.map(
     mc.chain( # lazy evaluation
