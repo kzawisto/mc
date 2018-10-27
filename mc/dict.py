@@ -6,20 +6,14 @@ class Dict(dict):
         super(Dict, self).__init__(args)
 
     def map_vals(self, func):
-        new_dict = {}
-        for key in self:
-            new_dict[key] = func(key, self[key])
-        return Dict(new_dict)
+        return Dict({key: func(key, val) for key, val in self.items()})
 
     def map_keys(self, func):
-        new_dict = {}
-        for key in self:
-            new_dict[func(key, self[key])] = self[key]
-        return Dict(new_dict)
+        return Dict({func(key, val): val for key, val in self.items()})
 
     def vals(self):
         from mc.list import List
-        return List([self[key] for key in self])
+        return List(self.values())
 
     def keys(self):
         from mc.list import List
@@ -30,11 +24,7 @@ class Dict(dict):
         return List([(key, self[key]) for key in self])
 
     def filter(self, func):
-        new_dict = {}
-        for key in self:
-            if func(key, self[key]):
-                new_dict[key] = self[key]
-        return Dict(new_dict)
+        return Dict({key: val for key, val in self.items() if func(key, val)})
 
     def get(self, key):
         assert key in self, "{} not in {}".format(key, self)
