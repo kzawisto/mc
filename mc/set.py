@@ -3,25 +3,13 @@ class Set(set):
         super(Set, self).__init__(args)
 
     def map(self, func):
-        new_set = set()
-        for item in self:
-            new_set.add(func(item))
-        return Set(new_set)
+        return Set([func(item) for item in self])
 
     def flat_map(self, func):
-        new_set = set()
-        for item in self:
-            result = func(item)
-            for r in result:
-                new_set.add(r)
-        return Set(new_set)
+        return Set([r for item in self for r in func(item)])
 
     def filter(self, func):
-        new_set = set()
-        for item in self:
-            if func(item):
-                new_set.add(item)
-        return Set(new_set)
+        return Set([item for item in self if func(item)])
 
     def to_dict(self):
         from mc.dict import Dict

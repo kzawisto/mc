@@ -6,25 +6,13 @@ class List(list):
         super(List, self).__init__(args)
 
     def map(self, func):
-        new_list = []
-        for item in self:
-            new_list.append(func(item))
-        return List(new_list)
+        return List([func(item) for item in self])
 
     def flat_map(self, func):
-        new_list = []
-        for item in self:
-            result = func(item)
-            for r in result:
-                new_list.append(r)
-        return List(new_list)
+        return List([r for item in self for r in func(item)])
 
     def filter(self, func):
-        new_list = []
-        for item in self:
-            if func(item):
-                new_list.append(item)
-        return List(new_list)
+        return List([item for item in self if func(item)])
 
     def multiproc_map(self, func):
         from pathos.multiprocessing import Pool
