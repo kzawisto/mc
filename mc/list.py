@@ -66,6 +66,15 @@ class List(list):
         from mc.set import Set
         return Set(self)
 
+    def zip_with_idx(self):
+        i = range(len(self))
+        return List(zip(i, self))
+
+    def pick_one(self):
+        assert len(self) == 1, 'Length of '+ str(self) + ' is ' + str(len(self)) + ' not 1 '
+        return next(iter(self))
+            
+
     def mk_string(self, sep=", ", left="", right=""):
         return left + sep.join([str(item) for item in self]) + right
 

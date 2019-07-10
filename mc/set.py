@@ -15,6 +15,10 @@ class Set(set):
         from mc.dict import Dict
         return Dict({item[0]: item[1] for item in self})
 
+    def pick_one(self):
+        assert len(self) == 1, 'Length of '+ str(self) + ' is ' + str(len(self)) + ' not 1 '
+        return next(iter(self))
+
     def to_list(self):
         from mc.list import List
         return List(self)

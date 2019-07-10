@@ -1,5 +1,5 @@
 
-from mc import Dict, List
+from mc import Dict, List, Set
 
 
 def chain(*callables):
@@ -47,3 +47,21 @@ def subtr(a, b): return a - b
 
 
 def multiply(a, b): return a * b
+
+
+def mcify(obj):
+    if isinstance(obj,dict):
+        return Dict({k: mcify(obj[k]) for k in obj})
+    if isinstance(obj, set):
+        
+        return Set({mcify(k) for k in obj})
+    if isinstance(obj, list):
+        
+        return List([mcify(k) for k in obj])
+    return obj
+
+def choose(i):
+    def func(x):
+        return x[i]
+    return func
+

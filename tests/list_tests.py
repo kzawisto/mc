@@ -78,3 +78,23 @@ def test_list_addition():
     assert_that(
         List([1, 2]) + List(["3", 4]), equal_to(List([1, 2, "3", 4]))
     )
+
+def test_zip_with_idx():
+
+    assert_that(
+        List(["A","C","D"]).zip_with_idx(), equal_to(List([(0,"A"),(1,"C"),(2,"D")]))
+    )
+
+def test_list_pick_one():
+    assert_that(
+        calling(List(['1','2']).pick_one), raises(AssertionError)
+    )   
+
+    assert_that(
+            calling(List([]).pick_one), raises(AssertionError)
+    )   
+
+    assert_that(
+            List([1]).pick_one(), equal_to(1)
+    )   
+
