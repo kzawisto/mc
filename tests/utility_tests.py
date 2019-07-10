@@ -1,5 +1,5 @@
 
-from mc.list import List
+from mc._list import List
 from mc.utility import *
 from hamcrest import *
 

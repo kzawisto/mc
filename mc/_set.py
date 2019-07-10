@@ -12,7 +12,7 @@ class Set(set):
         return Set([item for item in self if func(item)])
 
     def to_dict(self):
-        from mc.dict import Dict
+        from mc._dict import Dict
         return Dict({item[0]: item[1] for item in self})
 
     def pick_one(self):
@@ -20,7 +20,7 @@ class Set(set):
         return next(iter(self))
 
     def to_list(self):
-        from mc.list import List
+        from mc._list import List
         return List(self)
 
     def mk_string(self, sep=", ", left="", right=""):

@@ -48,7 +48,7 @@ class Failure(Attempt):
         return other
 
     def to_list(self):
-        from mc.list import List
+        from mc._list import List
         return List()
 
 
@@ -85,5 +85,5 @@ class Success(Attempt):
         return self.value
 
     def to_list(self):
-        from mc.list import List
+        from mc._list import List
         return List(self.value)

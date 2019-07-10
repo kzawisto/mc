@@ -12,15 +12,15 @@ class Dict(dict):
         return Dict({func(key, val): val for key, val in self.items()})
 
     def vals(self):
-        from mc.list import List
+        from mc._list import List
         return List(self.values())
 
     def keys(self):
-        from mc.list import List
+        from mc._list import List
         return List([key for key in self])
 
     def to_list(self):
-        from mc.list import List
+        from mc._list import List
         return List([(key, self[key]) for key in self])
 
     def filter(self, func):
@@ -32,10 +32,10 @@ class Dict(dict):
 
     def get_optional(self, key):
         if key in self:
-            from mc.option import Some
+            from mc._option import Some
             return Some(self[key])
         else:
-            from mc.option import Nothing
+            from mc._option import Nothing
             return Nothing()
 
     def get_or_else(self, key, else_val):
@@ -68,6 +68,6 @@ class Dict(dict):
         if isinstance(other, dict):
             return self.with_dic(other)
         if isinstance(other, list) or isinstance(other, set):
-            from mc.list import List
+            from mc._list import List
             return self.with_dic(List(other).to_dict())
         raise AssertionError("Not supported type, should be list, dict or set")

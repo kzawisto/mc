@@ -29,7 +29,7 @@ class List(list):
         return value
 
     def reduce(self, func):
-        from mc.option import Some, Nothing
+        from mc._option import Some, Nothing
         if self.is_empty():
             return Nothing()
         else:
@@ -37,13 +37,18 @@ class List(list):
             for item in self[1:]:
                 value = func(value, item)
             return Some(value)
+    
+    def accumulate(self, func, start_value):
+        for i in self:
+            start_value = func(start_value, i)
+        return start_value
 
     def is_empty(self):
         return len(self) == 0
 
     def group_by(self, func):
         dictionary = {}
-        from mc.dict import Dict
+        from mc._dict import Dict
         for item in self:
             val = func(item)
             if val not in dictionary:
@@ -59,11 +64,11 @@ class List(list):
         return List(sorted(self, key=key))
 
     def to_dict(self):
-        from mc.dict import Dict
+        from mc._dict import Dict
         return Dict({i[0]: i[1] for i in self})
 
     def to_set(self):
-        from mc.set import Set
+        from mc._set import Set
         return Set(self)
 
     def zip_with_idx(self):

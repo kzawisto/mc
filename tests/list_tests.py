@@ -1,6 +1,6 @@
-from mc import List, Some, Nothing
 from hamcrest import *
 from nose.tools import eq_
+from mc import List, Some, Nothing,add
 
 
 def test_list_map():
@@ -98,3 +98,7 @@ def test_list_pick_one():
             List([1]).pick_one(), equal_to(1)
     )   
 
+def test_accumulate():
+    assert_that(
+        List([1,2,3]).accumulate(add, 2), equal_to(8)
+    )
