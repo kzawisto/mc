@@ -5,3 +5,4 @@ from mc._set import Set
 from mc._option import Some, Nothing, Option
 from mc._attempt import Attempt, Success, Failure
 from mc.utility import *
+from mc.utility import mcify, choose
