@@ -14,6 +14,11 @@ class List(list):
     def filter(self, func):
         return List([item for item in self if func(item)])
 
+    def count(self, func=None):
+        if func is None:
+            return len(self)
+        return len(self.filter(func))
+
     def multiproc_map(self, func):
         from pathos.multiprocessing import Pool
         pool = Pool()
@@ -74,6 +79,12 @@ class List(list):
     def zip_with_idx(self):
         i = range(len(self))
         return List(zip(i, self))
+
+    def zip(self, other):
+        return List(zip(self,other))
+   
+    def zip_shift(self, step=1):
+        return List(zip(self[:-step], self[step:]))
 
     def pick_one(self):
         assert len(self) == 1, 'Length of '+ str(self) + ' is ' + str(len(self)) + ' not 1 '

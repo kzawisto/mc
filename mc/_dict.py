@@ -10,6 +10,9 @@ class Dict(dict):
 
     def map_keys(self, func):
         return Dict({func(key, val): val for key, val in self.items()})
+    
+    def flip_keys_and_vals(self):
+        return Dict({val: key for key, val in self.items()})
 
     def vals(self):
         from mc._list import List
@@ -55,7 +58,7 @@ class Dict(dict):
             new_dict[key] = dic[key]
         return new_dict
 
-    def mk_string(self, pair_sep=",", kv_sep=",", left="{", right="}"):
+    def mk_string(self, pair_sep=",", kv_sep="->", left="{", right="}"):
         return \
             self.map_vals(lambda k, v: "{}{}{}".format(k, kv_sep, v)) \
                 .vals().sorted() \
